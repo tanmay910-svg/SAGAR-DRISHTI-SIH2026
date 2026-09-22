@@ -1,0 +1,168 @@
+SD-MOCK-CAP-001:
+  vessel_id: SD-MOCK-CAP-001
+  vessel_name: Sagar Dhanush 001
+  vessel_class: Capesize
+  dwt: 176000
+  cargo_factor: 0.95
+  loa_m: 289
+  beam_m: 45.0
+  draft_m: 17.8
+  speed_kn: 12.7
+  sea_cons_t_day: 47
+  port_cons_t_day: 5
+  freight_index: BCI
+  tce_per_index_point: 13.5
+  build_year: 2015
+  flag: Mock / Scenario
+  cargo_types:
+  - Iron Ore
+  - Coking Coal
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-CAP-002:
+  vessel_id: SD-MOCK-CAP-002
+  vessel_name: Sagar Dhanush 002
+  vessel_class: Capesize
+  dwt: 192000
+  cargo_factor: 0.95
+  loa_m: 300
+  beam_m: 46.0
+  draft_m: 18.5
+  speed_kn: 12.2
+  sea_cons_t_day: 51
+  port_cons_t_day: 5
+  freight_index: BCI
+  tce_per_index_point: 13.5
+  build_year: 2018
+  flag: Mock / Scenario
+  cargo_types:
+  - Iron Ore
+  - Coking Coal
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-PMX-001:
+  vessel_id: SD-MOCK-PMX-001
+  vessel_name: Sagar Prerna 001
+  vessel_class: Panamax
+  dwt: 78000
+  cargo_factor: 0.95
+  loa_m: 225
+  beam_m: 32.2
+  draft_m: 13.9
+  speed_kn: 13.2
+  sea_cons_t_day: 30
+  port_cons_t_day: 4
+  freight_index: BPI
+  tce_per_index_point: 9.0
+  build_year: 2016
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Coking Coal
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-PMX-002:
+  vessel_id: SD-MOCK-PMX-002
+  vessel_name: Sagar Prerna 002
+  vessel_class: Panamax
+  dwt: 82000
+  cargo_factor: 0.95
+  loa_m: 229
+  beam_m: 32.3
+  draft_m: 14.4
+  speed_kn: 13.0
+  sea_cons_t_day: 31
+  port_cons_t_day: 4
+  freight_index: BPI
+  tce_per_index_point: 9.0
+  build_year: 2020
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Coking Coal
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-SMX-001:
+  vessel_id: SD-MOCK-SMX-001
+  vessel_name: Sagar Tejas 001
+  vessel_class: Supramax
+  dwt: 56000
+  cargo_factor: 0.95
+  loa_m: 188
+  beam_m: 32.0
+  draft_m: 12.5
+  speed_kn: 13.1
+  sea_cons_t_day: 26
+  port_cons_t_day: 4
+  freight_index: BSI
+  tce_per_index_point: 8.0
+  build_year: 2017
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Grain
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-SMX-002:
+  vessel_id: SD-MOCK-SMX-002
+  vessel_name: Sagar Tejas 002
+  vessel_class: Supramax
+  dwt: 62000
+  cargo_factor: 0.95
+  loa_m: 198
+  beam_m: 32.5
+  draft_m: 13.0
+  speed_kn: 12.8
+  sea_cons_t_day: 28
+  port_cons_t_day: 4
+  freight_index: BSI
+  tce_per_index_point: 8.0
+  build_year: 2021
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Grain
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-HND-001:
+  vessel_id: SD-MOCK-HND-001
+  vessel_name: Sagar Shakti 001
+  vessel_class: Handysize
+  dwt: 32000
+  cargo_factor: 0.95
+  loa_m: 175
+  beam_m: 29.0
+  draft_m: 9.7
+  speed_kn: 12.6
+  sea_cons_t_day: 21
+  port_cons_t_day: 3
+  freight_index: BHSI
+  tce_per_index_point: 6.5
+  build_year: 2014
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Grain
+  verified: false
+  data_source: Synthetic vessel master
+SD-MOCK-HND-002:
+  vessel_id: SD-MOCK-HND-002
+  vessel_name: Sagar Shakti 002
+  vessel_class: Handysize
+  dwt: 38000
+  cargo_factor: 0.95
+  loa_m: 182
+  beam_m: 30.5
+  draft_m: 10.3
+  speed_kn: 12.2
+  sea_cons_t_day: 23
+  port_cons_t_day: 3
+  freight_index: BHSI
+  tce_per_index_point: 6.5
+  build_year: 2019
+  flag: Mock / Scenario
+  cargo_types:
+  - Coal
+  - Grain
+  verified: false
+  data_source: Synthetic vessel master

@@ -1,0 +1,55 @@
+# Vessel-class master data. TYPICAL modern-design values for each class.
+# Real fixtures vary by ship: always overwrite with the nominated vessel's Q88 / description.
+# verified: false  => indicative industry-typical value, not yet checked against an authoritative source.
+Handysize:
+  dwt: 35000            # class range ~15k-40k DWT
+  cargo_factor: 0.95    # intake ~= DWT minus bunkers, stores, constant
+  loa_m: 180
+  beam_m: 30.0
+  draft_m: 10.0
+  speed_kn: 12.5
+  sea_cons_t_day: 22    # VLSFO at laden service speed
+  port_cons_t_day: 3
+  freight_index: BHSI   # Baltic index that tracks this class
+  tce_per_index_point: 6.5
+  verified: false
+Supramax:
+  dwt: 58000            # Supramax/Ultramax ~50k-64k DWT
+  cargo_factor: 0.95
+  loa_m: 190
+  beam_m: 32.3
+  draft_m: 12.8
+  speed_kn: 13.0
+  sea_cons_t_day: 27
+  port_cons_t_day: 4
+  freight_index: BSI
+  tce_per_index_point: 8.0
+  verified: false
+Panamax:
+  dwt: 82000            # Panamax/Kamsarmax ~65k-82k DWT
+  cargo_factor: 0.95
+  loa_m: 229
+  beam_m: 32.3
+  draft_m: 14.4
+  speed_kn: 13.0
+  sea_cons_t_day: 31
+  port_cons_t_day: 4
+  freight_index: BPI
+  tce_per_index_point: 9.0
+  verified: false
+Capesize:
+  dwt: 180000           # Capesize ~150k-210k DWT
+  cargo_factor: 0.95
+  loa_m: 292
+  beam_m: 45.0
+  draft_m: 18.2
+  speed_kn: 12.5
+  sea_cons_t_day: 48
+  port_cons_t_day: 5
+  freight_index: BCI
+  tce_per_index_point: 13.5
+  verified: false
+# tce_per_index_point: ASSUMPTION used only when the class-specific $/day TCE series
+# is not available and the BDI is used as a proxy. hire_usd_day = index * factor.
+# Rough calibration to typical relationships seen around 2019. Replace by loading
+# BPI 82 TCA / BCI 5TC / BSI 10TC / BHSI $/day series (see data/DATA_SOURCES.md).

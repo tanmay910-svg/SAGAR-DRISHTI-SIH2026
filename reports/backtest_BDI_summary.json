@@ -1,0 +1,10 @@
+{
+  "decisions": 97,
+  "wait_or_partial": 55,
+  "avg_saving_pct_all": 2.1,
+  "avg_saving_pct_when_waited": 3.73,
+  "hit_rate_when_waited": 0.636,
+  "worst_case_pct": -33.8,
+  "hindsight_avg_pct": 18.2,
+  "period": "2022-07-05 to 2026-07-01"
+}

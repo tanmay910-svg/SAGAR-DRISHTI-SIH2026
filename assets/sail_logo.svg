@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="70" viewBox="0 0 240 70">
+  <g fill="#123f68">
+    <path d="M16 8h40l16 16-16 16H16L32 24z"/>
+    <path d="M31 24h10l10 10-10 10H31l10-10z" fill="#fff"/>
+    <path d="M56 8l16 16-16 16-7-7 9-9-9-9z"/>
+  </g>
+  <text x="88" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#123f68">सेल SAIL</text>
+  <text x="88" y="48" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#333">STEEL AUTHORITY OF INDIA LIMITED</text>
+</svg>

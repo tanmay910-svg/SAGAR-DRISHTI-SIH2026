@@ -1,0 +1,212 @@
+{
+  "index": "BDI",
+  "kind": "index",
+  "data_end": "2026-09-11",
+  "horizons": {
+    "7": {
+      "trading_days": 5,
+      "best_model": "LightGBM",
+      "raw_quantile_coverage": 0.656,
+      "interval_coverage": 0.8,
+      "conformal_halfwidth_log": 0.1426,
+      "validation": [
+        {
+          "model": "LightGBM",
+          "MAE": 169.922,
+          "RMSE": 223.308,
+          "MAPE": 8.916
+        },
+        {
+          "model": "Ridge regression",
+          "MAE": 170.631,
+          "RMSE": 226.691,
+          "MAPE": 8.887
+        },
+        {
+          "model": "Baseline: last value",
+          "MAE": 183.284,
+          "RMSE": 237.551,
+          "MAPE": 9.613
+        },
+        {
+          "model": "Baseline: 21d moving avg",
+          "MAE": 319.896,
+          "RMSE": 407.942,
+          "MAPE": 17.456
+        }
+      ],
+      "top_features": [
+        "week_of_year",
+        "vol_63",
+        "dev_ma_63",
+        "zscore_252",
+        "vol_21",
+        "ret_21"
+      ]
+    },
+    "14": {
+      "trading_days": 10,
+      "best_model": "LightGBM",
+      "raw_quantile_coverage": 0.658,
+      "interval_coverage": 0.8,
+      "conformal_halfwidth_log": 0.236,
+      "validation": [
+        {
+          "model": "LightGBM",
+          "MAE": 278.823,
+          "RMSE": 359.423,
+          "MAPE": 14.694
+        },
+        {
+          "model": "Ridge regression",
+          "MAE": 279.394,
+          "RMSE": 360.372,
+          "MAPE": 14.562
+        },
+        {
+          "model": "Baseline: last value",
+          "MAE": 291.026,
+          "RMSE": 372.985,
+          "MAPE": 15.431
+        },
+        {
+          "model": "Baseline: 21d moving avg",
+          "MAE": 376.215,
+          "RMSE": 479.585,
+          "MAPE": 20.769
+        }
+      ],
+      "top_features": [
+        "vol_63",
+        "week_of_year",
+        "zscore_252",
+        "vol_21",
+        "dev_ma_63",
+        "ret_21"
+      ]
+    },
+    "30": {
+      "trading_days": 21,
+      "best_model": "Ridge regression",
+      "raw_quantile_coverage": 0.657,
+      "interval_coverage": 0.8,
+      "conformal_halfwidth_log": 0.3413,
+      "validation": [
+        {
+          "model": "Ridge regression",
+          "MAE": 396.46,
+          "RMSE": 513.168,
+          "MAPE": 21.379
+        },
+        {
+          "model": "LightGBM",
+          "MAE": 408.752,
+          "RMSE": 528.746,
+          "MAPE": 22.513
+        },
+        {
+          "model": "Baseline: last value",
+          "MAE": 429.366,
+          "RMSE": 549.548,
+          "MAPE": 23.648
+        },
+        {
+          "model": "Baseline: 21d moving avg",
+          "MAE": 452.544,
+          "RMSE": 563.083,
+          "MAPE": 25.286
+        }
+      ],
+      "top_features": [
+        "vol_63",
+        "week_of_year",
+        "zscore_252",
+        "dev_ma_63",
+        "brent_ret_21",
+        "inr_ret_21"
+      ]
+    },
+    "60": {
+      "trading_days": 43,
+      "best_model": "Ridge regression",
+      "raw_quantile_coverage": 0.656,
+      "interval_coverage": 0.8,
+      "conformal_halfwidth_log": 0.4259,
+      "validation": [
+        {
+          "model": "Ridge regression",
+          "MAE": 464.924,
+          "RMSE": 577.44,
+          "MAPE": 25.745
+        },
+        {
+          "model": "Baseline: last value",
+          "MAE": 521.484,
+          "RMSE": 641.936,
+          "MAPE": 29.327
+        },
+        {
+          "model": "Baseline: 21d moving avg",
+          "MAE": 522.376,
+          "RMSE": 664.085,
+          "MAPE": 29.709
+        },
+        {
+          "model": "LightGBM",
+          "MAE": 556.002,
+          "RMSE": 682.208,
+          "MAPE": 31.418
+        }
+      ],
+      "top_features": [
+        "vol_63",
+        "zscore_252",
+        "dev_ma_63",
+        "week_of_year",
+        "vol_21",
+        "brent_ret_21"
+      ]
+    },
+    "90": {
+      "trading_days": 64,
+      "best_model": "Ridge regression",
+      "raw_quantile_coverage": 0.674,
+      "interval_coverage": 0.8,
+      "conformal_halfwidth_log": 0.483,
+      "validation": [
+        {
+          "model": "Ridge regression",
+          "MAE": 586.16,
+          "RMSE": 729.94,
+          "MAPE": 33.553
+        },
+        {
+          "model": "Baseline: last value",
+          "MAE": 599.397,
+          "RMSE": 765.431,
+          "MAPE": 34.764
+        },
+        {
+          "model": "Baseline: 21d moving avg",
+          "MAE": 618.114,
+          "RMSE": 777.567,
+          "MAPE": 35.896
+        },
+        {
+          "model": "LightGBM",
+          "MAE": 675.941,
+          "RMSE": 827.881,
+          "MAPE": 40.067
+        }
+      ],
+      "top_features": [
+        "vol_63",
+        "zscore_252",
+        "week_of_year",
+        "brent_ret_21",
+        "dev_ma_63",
+        "vol_21"
+      ]
+    }
+  }
+}

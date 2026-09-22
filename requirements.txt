@@ -1,0 +1,16 @@
+pandas>=2.2
+numpy
+scikit-learn>=1.4
+lightgbm>=4.0
+pyyaml
+joblib
+fastapi
+uvicorn
+streamlit>=1.40
+plotly
+
+requests>=2.31
+reportlab>=4.0
+
+pymongo>=4.8
+python-dotenv>=1.0

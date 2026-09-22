@@ -1,0 +1,39 @@
+# Load ports and laden sea distances (nautical miles) to Indian East Coast (Paradip used as reference).
+# Distances INDICATIVE (verified: false): replace with a distance-table source (e.g. sea-distances.org,
+# Netpas, BP/Dataloy tables). Other discharge ports are adjusted by port_offset_nm in settings.
+Australia (Hay Point, QLD):
+  distance_nm: 4700
+  load_rate_t_day: 40000
+  ballast_nm: 3000
+  commodity: Coking coal
+  verified: false
+Australia (Newcastle, NSW):
+  distance_nm: 5400
+  load_rate_t_day: 40000
+  ballast_nm: 3500
+  commodity: Coal
+  verified: false
+Indonesia (Kalimantan):
+  distance_nm: 2600
+  load_rate_t_day: 15000
+  ballast_nm: 2000
+  commodity: Thermal coal
+  verified: false
+South Africa (Richards Bay):
+  distance_nm: 4800
+  load_rate_t_day: 35000
+  ballast_nm: 3000
+  commodity: Coal
+  verified: false
+Mozambique (Maputo):
+  distance_nm: 4600
+  load_rate_t_day: 20000
+  ballast_nm: 3000
+  commodity: Coking coal
+  verified: false
+USA (Hampton Roads):
+  distance_nm: 11500
+  load_rate_t_day: 30000
+  ballast_nm: 5000
+  commodity: Coking coal
+  verified: false

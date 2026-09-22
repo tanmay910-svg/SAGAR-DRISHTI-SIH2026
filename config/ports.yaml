@@ -1,0 +1,95 @@
+# Indian East Coast discharge ports. ALL VALUES INDICATIVE (verified: false).
+# Check each against the port authority / terminal operator's current port information
+# handbook before use. Limits differ by berth; values here are for the dry-bulk/coal
+# berths most relevant to SAIL. Where a port has a deeper dedicated berth, see notes.
+Paradip:
+  latitude: 20.266
+  longitude: 86.67
+  max_draft_m: 14.5
+  max_loa_m: 260
+  max_beam_m: 45
+  max_dwt: 125000
+  discharge_rate_t_day: 25000
+  normal_wait_days: 1.8
+  current_wait_days: 1.8
+  port_charges_usd: 90000
+  notes: "Mechanised coal berths. Western Dock (PPP) designed for deeper-draft Capesize: model as separate berth once confirmed."
+  verified: false
+Visakhapatnam:
+  latitude: 17.6868
+  longitude: 83.2185
+  max_draft_m: 17.0
+  max_loa_m: 300
+  max_beam_m: 50
+  max_dwt: 180000
+  discharge_rate_t_day: 30000
+  normal_wait_days: 2.0
+  current_wait_days: 2.0
+  port_charges_usd: 95000
+  notes: "Outer harbour. Inner harbour berths are much shallower."
+  verified: false
+Gangavaram:
+  latitude: 17.592
+  longitude: 83.274
+  max_draft_m: 21.0
+  max_loa_m: 330
+  max_beam_m: 60
+  max_dwt: 200000
+  discharge_rate_t_day: 35000
+  normal_wait_days: 1.5
+  current_wait_days: 1.5
+  port_charges_usd: 95000
+  notes: "Deep-water private port, adjacent to RINL Vizag Steel."
+  verified: false
+Gopalpur:
+  latitude: 19.266
+  longitude: 84.916
+  max_draft_m: 14.0
+  max_loa_m: 235
+  max_beam_m: 36
+  max_dwt: 85000
+  discharge_rate_t_day: 18000
+  normal_wait_days: 1.5
+  current_wait_days: 1.5
+  port_charges_usd: 80000
+  notes: ""
+  verified: false
+Dhamra:
+  latitude: 20.783
+  longitude: 86.947
+  max_draft_m: 18.0
+  max_loa_m: 300
+  max_beam_m: 50
+  max_dwt: 180000
+  discharge_rate_t_day: 35000
+  normal_wait_days: 2.0
+  current_wait_days: 2.0
+  port_charges_usd: 95000
+  notes: "Capesize-capable; serves Odisha steel belt."
+  verified: false
+Sagar_Sandheads:
+  latitude: 21.25
+  longitude: 88.05
+  max_draft_m: 18.0
+  max_loa_m: 300
+  max_beam_m: 50
+  max_dwt: 180000
+  discharge_rate_t_day: 12000
+  normal_wait_days: 2.5
+  current_wait_days: 2.5
+  port_charges_usd: 120000
+  notes: "Anchorage transloading into barges/mini-bulkers for Haldia/Kolkata; slow, weather-sensitive."
+  verified: false
+Haldia:
+  latitude: 22.03
+  longitude: 88.06
+  max_draft_m: 8.5
+  max_loa_m: 230
+  max_beam_m: 32.3
+  max_dwt: 40000
+  discharge_rate_t_day: 15000
+  normal_wait_days: 3.0
+  current_wait_days: 3.0
+  port_charges_usd: 85000
+  notes: "Riverine Hooghly approach; draft is tide- and season-dependent. Larger ships usually part-laden or lightered."
+  verified: false

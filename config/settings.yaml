@@ -1,0 +1,24 @@
+data_dir: data/raw
+horizons_days: [7, 14, 30, 60, 90]      # calendar days; converted to trading days (x 5/7)
+interval_quantiles: [0.1, 0.5, 0.9]      # 80% nominal prediction interval
+bunker:
+  # ASSUMPTION: VLSFO $/t ~= Brent $/bbl * 7.33 bbl/t * premium. Replace with a real VLSFO
+  # series (e.g. Singapore/Fujairah bunker quotes) when available.
+  bbl_per_tonne: 7.33
+  premium: 0.85
+ballast_charge_fraction: 0.5             # share of ballast leg paid by charterer (assumption)
+port_offset_nm:                          # extra/fewer nm vs Paradip for other discharge ports (indicative)
+  Paradip: 0
+  Visakhapatnam: -250
+  Gangavaram: -255
+  Gopalpur: -120
+  Dhamra: 60
+  Sagar_Sandheads: 170
+  Haldia: 230
+timing:
+  wait_threshold_pct: 4.0                # expected fall needed to recommend WAIT
+  now_threshold_pct: 4.0                 # expected rise needed to recommend CHARTER NOW
+  booking_lead_days: 10                  # fixture must be done this long before laycan
+risk_bands: {LOW: 30, MEDIUM: 60, HIGH: 80, CRITICAL: 100}
+score_weights: {cost: 0.40, forecast: 0.25, port: 0.15, risk: 0.10, schedule: 0.10}
+cyclone_months_bay_of_bengal: [4, 5, 10, 11, 12]   # rule-based weather risk (IMD climatology)
