@@ -35,6 +35,7 @@ from sail.exceptions import (  # noqa: E402
     ModelProcessingError,
 )
 from auth.db import get_auth_db, SERVICE_UNAVAILABLE_MSG  # noqa: E402
+from app.charter_strategy import render_charter_strategy  # noqa: E402
 
 # Streamlit Page Configuration
 st.set_page_config(
@@ -3883,6 +3884,7 @@ render_user_profile_bar()
 tabs = [
     ("Dashboard", "Dashboard"),
     ("Voyage Planner", "Voyage Planner"),
+    ("Charter Strategy", "Charter Strategy"),
     ("7-Day Simulator", "7-Day Simulator"),
     ("Freight Forecast", "Freight Forecast"),
     ("Vessel Comparison", "Vessel Comparison"),
@@ -4165,7 +4167,12 @@ if st.session_state.active_tab == "Dashboard":
 
 
 # ==============================================================================
-# TAB 2: VOYAGE PLANNER & COST DETAILS
+# TAB 2: CHARTER STRATEGY & MARKET INTELLIGENCE
+# ==============================================================================
+elif st.session_state.active_tab == "Charter Strategy":
+    render_charter_strategy()
+
+# TAB 3: 7-DAY VOYAGE SIMULATOR
 # ==============================================================================
 elif st.session_state.active_tab == "7-Day Simulator":
     # -------------------------------------------------------------------------
