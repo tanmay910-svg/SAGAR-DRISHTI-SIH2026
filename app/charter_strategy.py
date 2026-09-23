@@ -1,3 +1,11 @@
+"""Integrated Charter Strategy & Market Intelligence module for SAGAR DRISHTI."""
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+from sail import data, cost, vessels
+from sail.config import PORTS, ROUTES, VESSEL_PROFILES, VESSELS
+
 st.markdown("""
 <style>
 .stApp{background:#f5f9fc;color:#0d2842}.block-container{max-width:1180px;padding-top:1.2rem}
