@@ -81,7 +81,7 @@ def render_charter_strategy():
         st.caption("Brent is the existing bunker-cost proxy.")
     
     st.markdown("### 3 · Seven-day freight & disruption simulator")
-    scenario=st.selectbox("Market scenario",["base","bull","bear"],horizontal=True)
+    scenario=st.selectbox("Market scenario",["base","bull","bear"])
     try:
         scen=data.synthetic_future_scenario("BDI",days=7,scenario=scenario).copy()
         scen["day"]=np.arange(1,len(scen)+1);scen["commodity_pressure"]=commodity_trend;scen["congestion_pct"]=congestion
