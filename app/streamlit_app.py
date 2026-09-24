@@ -3285,21 +3285,8 @@ def render_landing_page(is_authenticated: bool = False):
 
         st.markdown('<div style="height: 10px;"></div>', unsafe_allow_html=True)
         if not is_authenticated:
-            cta_c1, cta_c2, cta_c3 = st.columns(3)
-            with cta_c1:
-                if st.button("⚓ LOGIN TO SAGAR DRISHTI", key="landing_btn_login", type="primary", use_container_width=True):
-                    st.session_state.auth_mode = "login"
-                    st.session_state.page = "auth"
-                    st.rerun()
-            with cta_c2:
-                if st.button("📝 CREATE ACCOUNT", key="landing_btn_register", type="secondary", use_container_width=True):
-                    st.session_state.auth_mode = "register"
-                    st.session_state.page = "auth"
-                    st.rerun()
-            with cta_c3:
-                if st.button("🚀 ENTER DEMO MODE", key="landing_btn_demo", type="secondary", use_container_width=True):
-                    enter_demo_mode()
-            st.markdown('<div style="text-align:center;font-size:11.5px;color:#556a7e;margin-top:5px;">Prototype evaluation access · No credentials or MongoDB required</div>', unsafe_allow_html=True)
+            if st.button("⚓ ENTER SAGAR DRISHTI", key="landing_btn_enter_platform", type="primary", use_container_width=True):
+                enter_demo_mode()
         else:
             if st.button("⚡ ENTER SAGAR DRISHTI DASHBOARD", key="landing_btn_enter_dash", type="primary", use_container_width=True):
                 st.session_state.show_login_loader = True
@@ -3550,20 +3537,8 @@ def render_landing_page(is_authenticated: bool = False):
     b_col1, b_col2, b_col3 = st.columns([1.0, 2.0, 1.0])
     with b_col2:
         if not is_authenticated:
-            sub_b1, sub_b2, sub_b3 = st.columns(3)
-            with sub_b1:
-                if st.button("⚓ LOGIN TO SAGAR DRISHTI", key="bottom_landing_login", type="primary", use_container_width=True):
-                    st.session_state.auth_mode = "login"
-                    st.session_state.page = "auth"
-                    st.rerun()
-            with sub_b2:
-                if st.button("📝 CREATE ACCOUNT", key="bottom_landing_reg", type="secondary", use_container_width=True):
-                    st.session_state.auth_mode = "register"
-                    st.session_state.page = "auth"
-                    st.rerun()
-            with sub_b3:
-                if st.button("🚀 ENTER DEMO MODE", key="bottom_landing_demo", type="secondary", use_container_width=True):
-                    enter_demo_mode()
+            if st.button("⚓ ENTER SAGAR DRISHTI", key="bottom_landing_enter_platform", type="primary", use_container_width=True):
+                enter_demo_mode()
         else:
             if st.button("⚡ ENTER SAGAR DRISHTI DASHBOARD", key="bottom_landing_dash", type="primary", use_container_width=True):
                 st.session_state.show_login_loader = True
