@@ -5156,33 +5156,40 @@ elif st.session_state.active_tab == "About":
         unsafe_allow_html=True,
     )
 
-    # Section 3: Master Data Governance & Operational Protocols
-    # Use st.html to ensure this institutional panel is rendered as HTML, not as a code block.
+    # Section 3: Data Governance & Operational Protocols
+    # Keep historical outputs, scenario simulations, and human verification requirements
+    # explicitly separated so the UI does not overstate live-data coverage.
     st.html("""
     <div class="panel" style="margin-bottom:10px;padding:14px 18px;">
       <div style="font-size:15px;font-weight:800;color:#0b416d;margin-bottom:10px;">
         3. Data Governance, Integrity &amp; Operational Protocols
       </div>
       <div style="font-size:13px;line-height:1.55;color:#173956;">
-        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:5px 0 3px;">Zero Synthetic Data Commitment</div>
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:5px 0 3px;">
+          Transparent Data &amp; Scenario Governance
+        </div>
         <ul style="margin:3px 0 9px 18px;padding:0;">
-          <li><b>No Fabricated Performance:</b> Backtest hit rates, savings estimates and cost outputs are derived from recorded historical data and model calculations.</li>
-          <li><b>Transparent Data Availability:</b> The system does not invent vessel names, congestion observations or freight quotes. When a required external feed is unavailable, the interface reports <code>Data Unavailable</code>.</li>
+          <li><b>No Fabricated Historical Performance:</b> Historical performance metrics and cost outputs are generated from the project's underlying datasets and model calculations.</li>
+          <li><b>Explicit Scenario Labelling:</b> When live external feeds are unavailable, simulated demand, congestion stress and seven-day future paths are explicitly labelled as scenario inputs and are not presented as live observations.</li>
         </ul>
 
-        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">Statutory Human-in-the-Loop Protocol</div>
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">
+          Human-in-the-Loop Chartering Protocol
+        </div>
         <div style="margin-bottom:3px;">
-          Sagar Drishti is a decision-support advisory system. Before executing a legally binding charter fixture, designated SAIL Chartering Officers must independently verify:
+          Sagar Drishti is a decision-support advisory system. Before executing a legally binding charter fixture, designated chartering personnel should independently verify:
         </div>
         <ol style="margin:3px 0 9px 18px;padding:0;">
-          <li><b>Vessel Q88 Documentation:</b> Confirm nominated vessel LOA, beam, arrival draft, de-ballasting rate and crane capacity against terminal limits.</li>
-          <li><b>Live Marine Port Notices:</b> Inspect current Port Master bulletins, tide tables and berth/siltation advisories.</li>
-          <li><b>Contractual Terms:</b> Verify applicable BIMCO dry-bulk clauses, laytime definitions and demurrage/despatch terms.</li>
+          <li><b>Vessel Documentation:</b> Confirm nominated vessel LOA, beam, arrival draft, de-ballasting capability and cargo-handling characteristics against applicable terminal requirements and available vessel documentation/Q88.</li>
+          <li><b>Live Port &amp; Marine Conditions:</b> Verify current Port Master notices, tide conditions, berth restrictions and applicable marine advisories from authoritative sources.</li>
+          <li><b>Contractual Terms:</b> Verify applicable charter-party forms, laytime, demurrage/despatch and other contractual terms with the relevant commercial/legal stakeholders.</li>
         </ol>
 
-        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">National Strategic Alignment</div>
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">
+          National Strategic Alignment
+        </div>
         <p style="margin:0;">
-          Sagar Drishti supports the strategic priorities of the <b>National Steel Policy 2017</b> and <b>Maritime India Vision 2030</b> through digital supply-chain intelligence, port efficiency and logistics resilience.
+          Sagar Drishti aligns with relevant priorities of the <b>National Steel Policy 2017</b> concerning raw-material security, infrastructure and logistics, and with <b>Maritime India Vision 2030</b> priorities around technology adoption, port efficiency and logistics.
         </p>
       </div>
     </div>
