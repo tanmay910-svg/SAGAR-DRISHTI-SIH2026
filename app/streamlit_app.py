@@ -5157,35 +5157,38 @@ elif st.session_state.active_tab == "About":
     )
 
     # Section 3: Master Data Governance & Operational Protocols
-    st.markdown(
-        """
-    <div class="panel" style="margin-bottom: 10px; padding: 12px 18px;">
-      <div style="font-size: 14px; font-weight: 700; color: #0b416d; margin-bottom: 6px;">3. Data Governance, Integrity &amp; Operational Protocols</div>
-      <div style="font-size: 13px; line-height: 1.55; color: #173956;">
-        <div style="font-size: 13px; font-weight: 700; color: #0b416d; margin: 4px 0 2px;">Zero Synthetic Data Commitment</div>
-        <ul style="margin: 2px 0 6px 18px; padding: 0;">
-          <li><b>No Fabricated Performance:</b> Backtest hit rates, percentage savings, and cost estimates reflect solely historical simulations and mathematical model outputs on recorded data.</li>
-          <li><b>No Synthetic Numbers:</b> No fictional vessel names, fake port congestion statistics, or manufactured freight quotes are introduced. Where an external data feed is unavailable, the UI transparently reports <code>"Data Unavailable"</code>.</li>
+    # Use st.html to ensure this institutional panel is rendered as HTML, not as a code block.
+    st.html("""
+    <div class="panel" style="margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:15px;font-weight:800;color:#0b416d;margin-bottom:10px;">
+        3. Data Governance, Integrity &amp; Operational Protocols
+      </div>
+      <div style="font-size:13px;line-height:1.55;color:#173956;">
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:5px 0 3px;">Zero Synthetic Data Commitment</div>
+        <ul style="margin:3px 0 9px 18px;padding:0;">
+          <li><b>No Fabricated Performance:</b> Backtest hit rates, savings estimates and cost outputs are derived from recorded historical data and model calculations.</li>
+          <li><b>Transparent Data Availability:</b> The system does not invent vessel names, congestion observations or freight quotes. When a required external feed is unavailable, the interface reports <code>Data Unavailable</code>.</li>
         </ul>
 
-        <div style="font-size: 13px; font-weight: 700; color: #0b416d; margin: 6px 0 2px;">Statutory Human-in-the-Loop Protocol</div>
-        <div style="margin-bottom: 2px;">The platform functions strictly as a decision-support advisory system. Prior to executing a legally binding charter party fixture, designated SAIL Chartering Officers must perform statutory verifications:</div>
-        <ol style="margin: 2px 0 6px 18px; padding: 0;">
-          <li><b>Vessel Q88 Documentation:</b> Confirm nominated vessel dimensions (LOA, beam, arrival draft, de-ballasting rate, crane capacity) against the nominated terminal limits.</li>
-          <li><b>Live Marine Port Notices:</b> Inspect live Port Master bulletins, tide tables, and seasonal berth siltation advisories.</li>
-          <li><b>Contractual Terms:</b> Verify standard BIMCO dry-bulk clauses (GENCON/NORGRAIN/AMWELSH), laytime definitions, and demurrage/despatch rates.</li>
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">Statutory Human-in-the-Loop Protocol</div>
+        <div style="margin-bottom:3px;">
+          Sagar Drishti is a decision-support advisory system. Before executing a legally binding charter fixture, designated SAIL Chartering Officers must independently verify:
+        </div>
+        <ol style="margin:3px 0 9px 18px;padding:0;">
+          <li><b>Vessel Q88 Documentation:</b> Confirm nominated vessel LOA, beam, arrival draft, de-ballasting rate and crane capacity against terminal limits.</li>
+          <li><b>Live Marine Port Notices:</b> Inspect current Port Master bulletins, tide tables and berth/siltation advisories.</li>
+          <li><b>Contractual Terms:</b> Verify applicable BIMCO dry-bulk clauses, laytime definitions and demurrage/despatch terms.</li>
         </ol>
 
-        <div style="font-size: 13px; font-weight: 700; color: #0b416d; margin: 6px 0 2px;">National Strategic Alignment</div>
-        <p style="margin: 0;">Sagar Drishti directly supports the strategic priorities of the <b>National Steel Policy 2017</b> (scaling domestic crude steel capacity while optimizing raw material import costs) and the <b>Maritime India Vision 2030</b> (enhancing digital supply chain intelligence, port efficiency, and logistics resilience).</p>
+        <div style="font-size:13px;font-weight:800;color:#0b416d;margin:7px 0 3px;">National Strategic Alignment</div>
+        <p style="margin:0;">
+          Sagar Drishti supports the strategic priorities of the <b>National Steel Policy 2017</b> and <b>Maritime India Vision 2030</b> through digital supply-chain intelligence, port efficiency and logistics resilience.
+        </p>
       </div>
     </div>
-    """,
-        unsafe_allow_html=True,
-    )
-
-
-# ==============================================================================
+    """)
+    
+    
 # TAB 9: CONTACT SECTION
 # ==============================================================================
 elif st.session_state.active_tab == "Contact":
