@@ -3589,7 +3589,7 @@ def render_auth_page():
             )
 
             with st.form(key="login_form"):
-                ident = st.text_input("Employee/User ID or Official Email", placeholder="e.g. SAIL-09482 or officer@sail.in")
+                ident = st.text_input("Official Email", placeholder="e.g. officer@sail.in")
                 pwd = st.text_input("Password", type="password", placeholder="Enter your confidential password")
                 login_submit = st.form_submit_button("LOGIN", use_container_width=True, type="primary")
 
