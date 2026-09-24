@@ -3285,8 +3285,20 @@ def render_landing_page(is_authenticated: bool = False):
 
         st.markdown('<div style="height: 10px;"></div>', unsafe_allow_html=True)
         if not is_authenticated:
-            if st.button("⚓ ENTER SAGAR DRISHTI", key="landing_btn_enter_platform", type="primary", use_container_width=True):
-                enter_demo_mode()
+            cta_login, cta_register, cta_demo = st.columns(3)
+            with cta_login:
+                if st.button("⚓ LOGIN", key="landing_btn_login", type="primary", use_container_width=True):
+                    st.session_state.auth_mode = "login"
+                    st.session_state.page = "auth"
+                    st.rerun()
+            with cta_register:
+                if st.button("📝 CREATE ACCOUNT", key="landing_btn_register", type="secondary", use_container_width=True):
+                    st.session_state.auth_mode = "register"
+                    st.session_state.page = "auth"
+                    st.rerun()
+            with cta_demo:
+                if st.button("🚀 DEMO MODE", key="landing_btn_demo", type="secondary", use_container_width=True):
+                    enter_demo_mode()
         else:
             if st.button("⚡ ENTER SAGAR DRISHTI DASHBOARD", key="landing_btn_enter_dash", type="primary", use_container_width=True):
                 st.session_state.show_login_loader = True
@@ -3671,6 +3683,10 @@ def render_auth_page():
             if st.button("ALREADY HAVE AN ACCOUNT? LOGIN", key="goto_login", use_container_width=True):
                 st.session_state.auth_mode = "login"
                 st.rerun()
+
+        st.markdown('<div style="text-align:center;margin:14px 0 8px 0;font-size:12px;color:#556a7e;">For evaluation without an authenticated account</div>', unsafe_allow_html=True)
+        if st.button("🚀 CONTINUE IN DEMO MODE", key="auth_demo_mode", use_container_width=True, type="secondary"):
+            enter_demo_mode()
 
         st.markdown(
             """
