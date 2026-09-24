@@ -1,12 +1,14 @@
-"""SAIL Sagar Drishti — Database & User Repository Layer (MongoDB).
-Handles secure persistent storage, indexing, and transactional credential verification.
+"""SAIL Sagar Drishti — Supabase Authentication Layer.
+
+Authentication is handled by Supabase Auth instead of a self-hosted MongoDB
+instance. The application only keeps the Supabase project URL and public
+anon key in environment/Streamlit secrets; passwords are handled by Supabase.
 """
 from __future__ import annotations
 
 import datetime as dt
 import logging
 import os
-import uuid
 from typing import Any
 
 try:
@@ -15,59 +17,78 @@ try:
 except ImportError:
     pass
 
-import pymongo
-from pymongo.errors import PyMongoError, DuplicateKeyError, ConnectionFailure, ServerSelectionTimeoutError
+try:
+    import streamlit as st
+except Exception:
+    st = None
 
-from .security import hash_password, verify_password, validate_password_strength, validate_email
+from supabase import create_client, Client
+
+from .security import validate_password_strength, validate_email
 
 logger = logging.getLogger(__name__)
 
-# Service Unavailable fallback message
 SERVICE_UNAVAILABLE_MSG = "Authentication service is temporarily unavailable. Please try again."
 
 
+def _secret(name: str, default: str = "") -> str:
+    value = os.getenv(name)
+    if value:
+        return value
+    if st is not None:
+        try:
+            value = st.secrets.get(name)
+            if value:
+                return str(value)
+        except Exception:
+            pass
+    return default
+
+
 class AuthDatabase:
-    """Enterprise MongoDB authentication repository with automatic indexing and connection pooling."""
+    """Compatibility wrapper around Supabase Auth.
 
-    def __init__(self, uri: str | None = None, db_name: str | None = None, timeout_ms: int = 2500):
-        self.uri = uri or os.getenv("MONGODB_URI") or os.getenv("MONGO_URI") or "mongodb://localhost:27017/"
-        self.db_name = db_name or os.getenv("MONGODB_DB_NAME") or os.getenv("MONGO_DB_NAME") or "sail_chartering"
-        self.timeout_ms = timeout_ms
-        self._client: pymongo.MongoClient | None = None
-        self._db: pymongo.database.Database | None = None
-        self._users: pymongo.collection.Collection | None = None
-        self._indexes_initialized = False
+    The existing application calls this class AuthDatabase, so the UI does not
+    need to know which authentication provider is used.
+    """
 
-    def _get_collection(self) -> pymongo.collection.Collection:
-        """Lazily initialize connection and ensure uniqueness indexes exist."""
-        if self._users is None:
-            self._client = pymongo.MongoClient(
-                self.uri,
-                serverSelectionTimeoutMS=self.timeout_ms,
-                connectTimeoutMS=self.timeout_ms,
-            )
-            self._db = self._client[self.db_name]
-            self._users = self._db["users"]
+    def __init__(self) -> None:
+        self.url = _secret("SUPABASE_URL").strip()
+        self.anon_key = _secret("SUPABASE_ANON_KEY").strip()
+        self._client: Client | None = None
 
-        if not self._indexes_initialized:
-            try:
-                # Create unique index on employee_id and email
-                self._users.create_index("employee_id", unique=True, sparse=True)
-                self._users.create_index("email", unique=True, sparse=True)
-                self._indexes_initialized = True
-            except Exception:
-                pass
-
-        return self._users
+    def _get_client(self) -> Client:
+        if not self.url or not self.anon_key:
+            raise RuntimeError("Supabase credentials are not configured.")
+        if self._client is None:
+            self._client = create_client(self.url, self.anon_key)
+        return self._client
 
     def is_connected(self) -> bool:
-        """Health check verifying database liveness."""
+        """Return whether Supabase credentials are configured and usable."""
         try:
-            coll = self._get_collection()
-            coll.database.command("ping")
+            self._get_client()
             return True
         except Exception:
             return False
+
+    @staticmethod
+    def _safe_user(user: Any) -> dict[str, Any] | None:
+        if not user:
+            return None
+
+        metadata = getattr(user, "user_metadata", None) or {}
+        created_at = getattr(user, "created_at", None)
+        return {
+            "user_id": getattr(user, "id", ""),
+            "full_name": metadata.get("full_name", "SAIL Officer"),
+            "employee_id": metadata.get("employee_id", ""),
+            "email": getattr(user, "email", ""),
+            "department": metadata.get("department", "Raw Material Logistics"),
+            "designation": metadata.get("designation", "Chartering Officer"),
+            "created_at": created_at or dt.datetime.now(dt.timezone.utc).isoformat(),
+            "last_login": dt.datetime.now(dt.timezone.utc).isoformat(),
+        }
 
     def register_user(
         self,
@@ -79,12 +100,7 @@ class AuthDatabase:
         department: str = "",
         designation: str = "",
     ) -> tuple[bool, str, dict[str, Any] | None]:
-        """Register a new user in MongoDB with strict validation and password hashing.
-        
-        Returns:
-            tuple of (success: bool, message: str, user_dict: dict | None)
-        """
-        # 1. Mandatory fields check
+        """Register a user with Supabase email/password authentication."""
         full_name = (full_name or "").strip()
         employee_id = (employee_id or "").strip().upper()
         email = (email or "").strip().lower()
@@ -94,68 +110,56 @@ class AuthDatabase:
         if not full_name or not employee_id or not email or not password or not confirm_password:
             return False, "All mandatory fields must be filled.", None
 
-        # 2. Email format validation
         if not validate_email(email):
             return False, "Please enter a valid email address.", None
 
-        # 3. Password match validation
         if password != confirm_password:
             return False, "Passwords do not match.", None
 
-        # 4. Password complexity validation
         pw_ok, pw_msg = validate_password_strength(password)
         if not pw_ok:
             return False, pw_msg, None
 
         try:
-            coll = self._get_collection()
+            response = self._get_client().auth.sign_up({
+                "email": email,
+                "password": password,
+                "options": {
+                    "data": {
+                        "full_name": full_name,
+                        "employee_id": employee_id,
+                        "department": department or "Raw Material Logistics",
+                        "designation": designation or "Chartering Officer",
+                    }
+                },
+            })
 
-            # 5. Pre-check uniqueness for clean specific error messaging
-            if coll.find_one({"email": email}):
+            user = getattr(response, "user", None)
+            session = getattr(response, "session", None)
+
+            if not user:
+                return False, "Account could not be created. Please try again.", None
+
+            safe_user = self._safe_user(user)
+
+            # For the SIH deployment, email confirmation should be disabled
+            # in Supabase so registration can immediately return a session.
+            if session:
+                return True, "Account created successfully. Please login.", safe_user
+
+            return (
+                True,
+                "Account created successfully. Please verify your email before login.",
+                safe_user,
+            )
+
+        except Exception as exc:
+            msg = str(exc).lower()
+            if "already registered" in msg or "already exists" in msg:
                 return False, "An account with this email already exists.", None
-            if coll.find_one({"employee_id": employee_id}):
-                return False, "An account with this Employee ID already exists.", None
-
-            # 6. Cryptographically hash password (PBKDF2-HMAC-SHA256, 100k rounds)
-            pwd_hash = hash_password(password)
-            now_iso = dt.datetime.now(dt.timezone.utc).isoformat()
-            user_id = f"usr_{uuid.uuid4().hex[:12]}"
-
-            user_doc = {
-                "user_id": user_id,
-                "full_name": full_name,
-                "employee_id": employee_id,
-                "email": email,
-                "password_hash": pwd_hash,
-                "department": department or "Raw Material Logistics",
-                "designation": designation or "Chartering Officer",
-                "created_at": now_iso,
-                "last_login": None,
-            }
-
-            coll.insert_one(user_doc)
-
-            # Return safe representation with zero password info
-            safe_user = {
-                "user_id": user_id,
-                "full_name": full_name,
-                "employee_id": employee_id,
-                "email": email,
-                "department": user_doc["department"],
-                "designation": user_doc["designation"],
-                "created_at": now_iso,
-            }
-            return True, "Account created successfully. Please login.", safe_user
-
-        except DuplicateKeyError as dke:
-            err_str = str(dke).lower()
-            if "employee_id" in err_str:
-                return False, "An account with this Employee ID already exists.", None
-            return False, "An account with this email already exists.", None
-
-        except (PyMongoError, ConnectionFailure, ServerSelectionTimeoutError, OSError):
-            return False, SERVICE_UNAVAILABLE_MSG, None
-        except Exception:
+            if "password" in msg and ("weak" in msg or "short" in msg):
+                return False, "Password does not meet the required strength.", None
+            logger.warning("Supabase registration failed: %s", exc)
             return False, SERVICE_UNAVAILABLE_MSG, None
 
     def authenticate_user(
@@ -163,70 +167,45 @@ class AuthDatabase:
         identifier: str,
         password: str,
     ) -> tuple[bool, str, dict[str, Any] | None]:
-        """Authenticate user against MongoDB credentials.
-        
-        Identifier can be either Employee ID (e.g. SAIL-1234) or Official Email.
-        Does NOT reveal whether the email or user ID exists separately upon failure.
-        """
+        """Authenticate by official email and password through Supabase Auth."""
         identifier = (identifier or "").strip()
-        if not identifier or not password:
-            return False, "Invalid User ID/Email or Password.", None
+        password = password or ""
 
-        norm_emp = identifier.upper()
-        norm_email = identifier.lower()
+        if not identifier or not password:
+            return False, "Invalid Email or Password.", None
+
+        # Supabase password authentication uses email/phone as the identifier.
+        # Employee ID is retained as profile metadata for the authenticated user.
+        if "@" not in identifier:
+            return False, "Please login using the email address used during registration.", None
 
         try:
-            coll = self._get_collection()
-            user = coll.find_one({
-                "$or": [
-                    {"employee_id": norm_emp},
-                    {"email": norm_email},
-                ]
+            response = self._get_client().auth.sign_in_with_password({
+                "email": identifier.lower(),
+                "password": password,
             })
+            user = getattr(response, "user", None)
 
-            # Check if user exists and password hash matches
-            if not user or not verify_password(password, user.get("password_hash", "")):
-                return False, "Invalid User ID/Email or Password.", None
+            if not user:
+                return False, "Invalid Email or Password.", None
 
-            # Update last_login timestamp safely
-            now_iso = dt.datetime.now(dt.timezone.utc).isoformat()
-            try:
-                coll.update_one({"_id": user["_id"]}, {"$set": {"last_login": now_iso}})
-            except Exception:
-                pass
+            return True, "Authentication successful.", self._safe_user(user)
 
-            safe_user = {
-                "user_id": user.get("user_id", str(user.get("_id"))),
-                "full_name": user.get("full_name", "SAIL Officer"),
-                "employee_id": user.get("employee_id", norm_emp),
-                "email": user.get("email", norm_email),
-                "department": user.get("department", "Raw Material Logistics"),
-                "designation": user.get("designation", "Chartering Officer"),
-                "last_login": now_iso,
-            }
-            return True, "Authentication successful.", safe_user
-
-        except (PyMongoError, ConnectionFailure, ServerSelectionTimeoutError, OSError):
-            return False, SERVICE_UNAVAILABLE_MSG, None
-        except Exception:
-            return False, SERVICE_UNAVAILABLE_MSG, None
+        except Exception as exc:
+            logger.warning("Supabase login failed: %s", exc)
+            return False, "Invalid Email or Password.", None
 
     def get_user_by_id(self, user_id: str) -> dict[str, Any] | None:
-        """Fetch safe user record by user_id."""
-        try:
-            coll = self._get_collection()
-            user = coll.find_one({"user_id": user_id}, {"password_hash": 0, "_id": 0})
-            return user
-        except Exception:
-            return None
+        # User data is maintained by Supabase Auth; the current application
+        # only needs the session user returned during authentication.
+        return None
 
 
-# Global singleton instance
 _GLOBAL_AUTH_DB: AuthDatabase | None = None
 
 
 def get_auth_db() -> AuthDatabase:
-    """Get or create singleton AuthDatabase client instance."""
+    """Get or create the singleton Supabase authentication client."""
     global _GLOBAL_AUTH_DB
     if _GLOBAL_AUTH_DB is None:
         _GLOBAL_AUTH_DB = AuthDatabase()
